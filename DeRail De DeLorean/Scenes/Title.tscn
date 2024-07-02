@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://skxptiueu5kd"]
+
+[ext_resource type="Script" path="res://Scenes/Title.gd" id="1_kr6w3"]
+[ext_resource type="Texture2D" uid="uid://byyneev7fpt8o" path="res://Assets/TitleScreen/Title.png" id="1_wv3qi"]
+[ext_resource type="Texture2D" uid="uid://c1qity7ysg15i" path="res://Assets/TitleScreen/de rail de de lorean.png" id="2_1x10x"]
+[ext_resource type="FontFile" uid="uid://f14et30hb4ch" path="res://Fonts/Seven Segment.ttf" id="3_o2qpe"]
+[ext_resource type="Texture2D" uid="uid://208akrtgv622" path="res://Assets/TitleScreen/Gemini Logo.png" id="4_t4u60"]
+
+[node name="Title" type="Node2D"]
+script = ExtResource("1_kr6w3")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 2019.0
+offset_bottom = 1136.0
+scale = Vector2(0.634039, 0.634039)
+texture = ExtResource("1_wv3qi")
+metadata/_edit_use_anchors_ = true
+
+[node name="DeRailDeDeLorean" type="Sprite2D" parent="."]
+position = Vector2(497, 66)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1x10x")
+
+[node name="Play" type="Button" parent="."]
+offset_left = 1104.0
+offset_top = 592.0
+offset_right = 1151.0
+offset_bottom = 623.0
+scale = Vector2(3, 3)
+theme_override_fonts/font = ExtResource("3_o2qpe")
+text = "PLAY"
+metadata/_edit_use_anchors_ = true
+
+[node name="GeminiLogo" type="Sprite2D" parent="."]
+position = Vector2(268.573, 664)
+scale = Vector2(0.120603, 0.120603)
+texture = ExtResource("4_t4u60")
+
+[node name="PoweredBy" type="RichTextLabel" parent="."]
+offset_left = 24.0
+offset_top = 656.0
+offset_right = 200.0
+offset_bottom = 696.0
+theme_override_fonts/normal_font = ExtResource("3_o2qpe")
+theme_override_font_sizes/normal_font_size = 34
+text = "Powered by"
+metadata/_edit_use_anchors_ = true

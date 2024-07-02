@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnsai2dgcvn7h"]
+
+[ext_resource type="Script" path="res://Scenes/Keys.gd" id="1_7fg0b"]
+[ext_resource type="Texture2D" uid="uid://nhweekl5420a" path="res://Assets/Keys/Garage.png" id="1_h0w3d"]
+[ext_resource type="Texture2D" uid="uid://df8cku53apu1x" path="res://Assets/Keys/Keys.png" id="2_rt0c4"]
+[ext_resource type="FontFile" uid="uid://f14et30hb4ch" path="res://Fonts/Seven Segment.ttf" id="3_021fm"]
+
+[node name="Keys" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7fg0b")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 2019.0
+offset_bottom = 1136.0
+scale = Vector2(0.634039, 0.634039)
+texture = ExtResource("1_h0w3d")
+
+[node name="SolidBlack" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.713726)
+layout_mode = 0
+offset_right = 2019.0
+offset_bottom = 1136.0
+scale = Vector2(0.634039, 0.634039)
+color = Color(0, 0, 0, 1)
+
+[node name="Key" type="Sprite2D" parent="."]
+position = Vector2(640, 264)
+scale = Vector2(1.16667, 1.16667)
+texture = ExtResource("2_rt0c4")
+
+[node name="EnterLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 379.0
+offset_top = 373.0
+offset_right = 901.0
+offset_bottom = 413.0
+theme_override_fonts/normal_font = ExtResource("3_021fm")
+theme_override_font_sizes/normal_font_size = 34
+text = "Enter your Google AI Studio API Key:"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 428.0
+offset_right = 896.0
+offset_bottom = 467.0
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 589.0
+offset_top = 480.0
+offset_right = 640.0
+offset_bottom = 511.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("3_021fm")
+text = "START"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="FlagLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 550.0
+offset_right = 867.0
+offset_bottom = 582.0
+theme_override_colors/default_color = Color(0.925996, 0.0027351, 0.00150052, 1)
+theme_override_fonts/normal_font = ExtResource("3_021fm")
+theme_override_font_sizes/normal_font_size = 25

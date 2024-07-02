@@ -1,0 +1,128 @@
+[gd_scene load_steps=20 format=3 uid="uid://c0rpmf1fpurmw"]
+
+[ext_resource type="Script" path="res://Scenes/Main.gd" id="1_bm6uy"]
+[ext_resource type="PackedScene" uid="uid://bpjrmrmr72q4t" path="res://Scenes/LevelElements/DeLorean.tscn" id="1_fy4vq"]
+[ext_resource type="Texture2D" uid="uid://dfo4u6jw632s2" path="res://Assets/Textures/Asphalt.jpg" id="2_h4shd"]
+[ext_resource type="Texture2D" uid="uid://cuawe43p2dnle" path="res://Assets/Textures/Epic_BlueSunset_EquiRect_flat.png" id="2_uvrbb"]
+[ext_resource type="Texture2D" uid="uid://cmuqedgfoacvi" path="res://Assets/Textures/Edge Line Texture.jpg" id="3_px78v"]
+[ext_resource type="Texture2D" uid="uid://bet7vwsgxc3iy" path="res://Assets/Textures/Dirt.jpg" id="3_ruc6j"]
+[ext_resource type="FontFile" uid="uid://f14et30hb4ch" path="res://Fonts/Seven Segment.ttf" id="5_rbcjb"]
+[ext_resource type="PackedScene" uid="uid://dv404o2sr2wva" path="res://Scenes/LevelElements/GuardrailsALotOfEm.tscn" id="8_jvvuv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jyod"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0ijde"]
+size = Vector2(0.1, 10000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1kag"]
+albedo_texture = ExtResource("3_px78v")
+uv1_scale = Vector3(40, 40, 40)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e7a34"]
+size = Vector2(0.15, 10000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cwcm"]
+albedo_texture = ExtResource("2_h4shd")
+metallic = 0.5
+uv1_scale = Vector3(12, 10000, 100)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qg0df"]
+material = SubResource("StandardMaterial3D_8cwcm")
+size = Vector2(12, 10000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io8ip"]
+albedo_texture = ExtResource("3_ruc6j")
+uv1_scale = Vector3(200, 2000, 200)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kwuc1"]
+material = SubResource("StandardMaterial3D_io8ip")
+size = Vector2(1000, 10000)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vgonc"]
+panorama = ExtResource("2_uvrbb")
+
+[sub_resource type="Sky" id="Sky_f5pqw"]
+sky_material = SubResource("PanoramaSkyMaterial_vgonc")
+
+[sub_resource type="Environment" id="Environment_1km7n"]
+background_mode = 2
+sky = SubResource("Sky_f5pqw")
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_bm6uy")
+
+[node name="DeLorean" parent="." instance=ExtResource("1_fy4vq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.98714, 0)
+
+[node name="CenterLineYellow1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.005, 0)
+material_override = SubResource("StandardMaterial3D_5jyod")
+mesh = SubResource("PlaneMesh_0ijde")
+
+[node name="CenterLineYellow2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.005, 0)
+material_override = SubResource("StandardMaterial3D_5jyod")
+mesh = SubResource("PlaneMesh_0ijde")
+
+[node name="EdgeLineLeft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 0.02, 0)
+material_override = SubResource("StandardMaterial3D_q1kag")
+mesh = SubResource("PlaneMesh_e7a34")
+skeleton = NodePath("../Asphalt")
+
+[node name="EdgeLineRight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 0.02, 0)
+material_override = SubResource("StandardMaterial3D_q1kag")
+mesh = SubResource("PlaneMesh_e7a34")
+skeleton = NodePath("../Asphalt")
+
+[node name="Asphalt" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_qg0df")
+
+[node name="Dirt" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.279942, 0)
+mesh = SubResource("PlaneMesh_kwuc1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1km7n")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.783997, 0.620765, 0, -0.620765, 0.783997, 0, 24.2586, 35.2088)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Speedometer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer/Speedometer"]
+layout_mode = 0
+offset_left = 556.0
+offset_top = 15.0
+offset_right = 724.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_rbcjb")
+theme_override_font_sizes/font_size = 66
+text = "88"
+horizontal_alignment = 1
+
+[node name="MPHLabel" type="Label" parent="CanvasLayer/Speedometer"]
+layout_mode = 0
+offset_left = 621.0
+offset_top = 72.0
+offset_right = 661.0
+offset_bottom = 95.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "MPH"
+
+[node name="GuardrailsLotOfEm" parent="." instance=ExtResource("8_jvvuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="GuardrailsLotOfEm2" parent="." instance=ExtResource("8_jvvuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)

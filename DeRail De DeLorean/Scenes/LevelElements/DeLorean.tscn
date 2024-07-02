@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpjrmrmr72q4t"]
+
+[ext_resource type="Script" path="res://Scenes/LevelElements/DeLorean.gd" id="1_olohd"]
+[ext_resource type="Texture2D" uid="uid://cfm150xn31afc" path="res://Assets/DeLorean DMC-12/Back.png" id="2_p15yu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bddh8"]
+size = Vector3(1.77686, 1.13342, 1)
+
+[node name="DeLorean" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89123, 0)
+script = ExtResource("1_olohd")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.265, 0, 0, 0, 0.265, 0, 0, 0, 0.265, 0, -1.3288, 0)
+texture = ExtResource("2_p15yu")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.135614, 2.95875)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0109863, -1.31715, 0)
+shape = SubResource("BoxShape3D_bddh8")
