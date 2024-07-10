@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://blo0p61fn752x"]
+
+[ext_resource type="Texture2D" uid="uid://b6itp0vkh45lt" path="res://Assets/Textures/Creosote Bush.png" id="1_0guwd"]
+
+[node name="Creosote Bush" type="MeshInstance3D"]
+
+[node name="Texture1" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.403, 0)
+texture = ExtResource("1_0guwd")
+
+[node name="Texture2" type="Sprite3D" parent="."]
+transform = Transform3D(-1.31134e-08, 0, 0.2, 0, 0.2, 0, -0.3, 0, -8.74228e-09, 0, 0.402801, 0)
+texture = ExtResource("1_0guwd")
