@@ -8859,3 +8859,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 9943)
 
 [node name="Route66Sign" parent="." instance=ExtResource("10_q63fb")]
 transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, -7, 0, 10)
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
