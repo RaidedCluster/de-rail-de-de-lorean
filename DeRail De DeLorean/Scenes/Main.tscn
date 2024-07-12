@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c0rpmf1fpurmw"]
+[gd_scene load_steps=25 format=3 uid="uid://c0rpmf1fpurmw"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_bm6uy"]
 [ext_resource type="PackedScene" uid="uid://bpjrmrmr72q4t" path="res://Scenes/LevelElements/DeLorean.tscn" id="1_fy4vq"]
@@ -7,9 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://cmuqedgfoacvi" path="res://Assets/Textures/Edge Line Texture.jpg" id="3_px78v"]
 [ext_resource type="Texture2D" uid="uid://bet7vwsgxc3iy" path="res://Assets/Textures/Dirt.jpg" id="3_ruc6j"]
 [ext_resource type="FontFile" uid="uid://f14et30hb4ch" path="res://Fonts/Seven Segment.ttf" id="5_rbcjb"]
+[ext_resource type="Texture2D" uid="uid://bq03qbf1hiqky" path="res://Assets/Icons/Gemini Icon.png" id="8_ej1q4"]
 [ext_resource type="PackedScene" uid="uid://dv404o2sr2wva" path="res://Scenes/LevelElements/GuardrailsALotOfEm.tscn" id="8_jvvuv"]
+[ext_resource type="Texture2D" uid="uid://2jposuf4gfr3" path="res://Assets/Icons/Send Icon Gemini Transparent.png" id="9_in8nu"]
 [ext_resource type="PackedScene" uid="uid://blo0p61fn752x" path="res://Scenes/LevelElements/Creosote Bush.tscn" id="9_nh0sf"]
 [ext_resource type="PackedScene" uid="uid://c78cpjxgfkmcj" path="res://Route 66.tscn" id="10_q63fb"]
+[ext_resource type="Texture2D" uid="uid://cipk1gmlhrkbo" path="res://Assets/Icons/Send Icon Gemini.png" id="12_yvhhw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jyod"]
 albedo_color = Color(1, 1, 0, 1)
@@ -55,7 +58,7 @@ sky = SubResource("Sky_f5pqw")
 script = ExtResource("1_bm6uy")
 
 [node name="DeLorean" parent="." instance=ExtResource("1_fy4vq")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.98714, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.3106, 1.98714, 0)
 
 [node name="CenterLineYellow1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.005, 4950)
@@ -123,6 +126,36 @@ offset_right = 661.0
 offset_bottom = 95.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "MPH"
+
+[node name="Prompt" type="Node2D" parent="CanvasLayer"]
+
+[node name="GeminiLogo" type="Sprite2D" parent="CanvasLayer/Prompt"]
+position = Vector2(208, 672)
+scale = Vector2(0.128648, 0.128648)
+texture = ExtResource("8_ej1q4")
+
+[node name="SendButton" type="TextureButton" parent="CanvasLayer/Prompt"]
+offset_left = 1072.0
+offset_top = 648.0
+offset_right = 1328.0
+offset_bottom = 904.0
+scale = Vector2(0.172, 0.172)
+texture_normal = ExtResource("9_in8nu")
+texture_pressed = ExtResource("12_yvhhw")
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/Prompt"]
+offset_left = 240.0
+offset_top = 648.0
+offset_right = 1056.0
+offset_bottom = 696.0
+placeholder_text = "   Enter a prompt here."
+
+[node name="DialogueContainer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
 
 [node name="GuardrailsLotOfEm" parent="." instance=ExtResource("8_jvvuv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
