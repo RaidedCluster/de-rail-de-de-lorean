@@ -10,10 +10,15 @@ extends Node3D
 @export var turn_deceleration: float = 1.0
 @export var min_turn_speed: float = 20.0
 
+@export var lane_change_speed: float = 2.0  # Speed of the lane change transition
+var target_lane_x: float = -2.78  # Initial target lane (right lane)
+var is_lane_changing: bool = false  # To track if a lane change is in progress
+
 var current_speed: float = 0.0
 var direction: Vector3 = Vector3(0, 0, -1)
 var current_sprite: Sprite3D
 var collision_occurred: bool = false
+var player_control: bool = false
 
 func _ready():
 	current_sprite = $Sprite3D
@@ -22,8 +27,9 @@ func _ready():
 
 func _process(delta):
 	if !collision_occurred:
-		handle_input(delta)
-	move_car(delta)
+		if player_control:
+			handle_input(delta)
+		move_car(delta)
 	update_sprite()
 
 func handle_input(delta):
@@ -32,10 +38,17 @@ func handle_input(delta):
 		var speed_factor = (max_speed - abs(current_speed)) / max_speed
 		var effective_turn_speed = turn_speed * speed_factor + min_turn_speed * (1.0 - speed_factor)
 		
-		if Input.is_action_pressed("ui_left"):
-			rotation_angle = effective_turn_speed * delta
-		elif Input.is_action_pressed("ui_right"):
-			rotation_angle = -effective_turn_speed * delta
+		# Invert controls if reversing
+		if current_speed > 0:
+			if Input.is_action_pressed("ui_left"):
+				rotation_angle = effective_turn_speed * delta
+			elif Input.is_action_pressed("ui_right"):
+				rotation_angle = -effective_turn_speed * delta
+		else:
+			if Input.is_action_pressed("ui_left"):
+				rotation_angle = -effective_turn_speed * delta
+			elif Input.is_action_pressed("ui_right"):
+				rotation_angle = effective_turn_speed * delta
 		
 		if rotation_angle != 0.0:
 			direction = direction.rotated(Vector3.UP, deg_to_rad(rotation_angle))
@@ -68,7 +81,22 @@ func handle_input(delta):
 
 func move_car(delta):
 	if !collision_occurred:
+		# Smooth lane change transition
+		if is_lane_changing and current_speed > 0:  # Only change lane if the car is moving
+			var current_x = global_transform.origin.x
+			var distance_to_target = target_lane_x - current_x
+			if abs(distance_to_target) > 0.1:  # Continue moving towards target lane
+				var lane_change_step = lane_change_speed * delta
+				if abs(distance_to_target) < lane_change_step:
+					lane_change_step = abs(distance_to_target)
+				global_transform.origin.x += sign(distance_to_target) * lane_change_step
+			else:  # Reached the target lane
+				is_lane_changing = false
+				global_transform.origin.x = target_lane_x  # Snap to target lane to avoid small offset
+		
+		# Normal movement
 		translate(direction * current_speed * delta)
+
 
 func _on_body_entered(body):
 	if body.is_in_group("guardrails"):
@@ -112,3 +140,4 @@ func update_sprite():
 	else:
 		current_sprite.texture = preload("res://Assets/DeLorean DMC-12/Front.png")
 		current_sprite.flip_h = false
+

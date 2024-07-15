@@ -58,7 +58,7 @@ sky = SubResource("Sky_f5pqw")
 script = ExtResource("1_bm6uy")
 
 [node name="DeLorean" parent="." instance=ExtResource("1_fy4vq")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.3106, 1.98714, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.77973, 1.98714, 0)
 
 [node name="CenterLineYellow1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.005, 4950)
@@ -149,6 +149,7 @@ offset_top = 648.0
 offset_right = 1056.0
 offset_bottom = 696.0
 placeholder_text = "   Enter a prompt here."
+max_length = 2520
 
 [node name="DialogueContainer" type="Control" parent="CanvasLayer"]
 layout_mode = 3
