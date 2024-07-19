@@ -10,7 +10,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.891, 0)
 script = ExtResource("1_bkbr6")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.265, 0, 0, 0, 0.265, 0, 0, 0, 0.265, 0, -1.329, 0)
+transform = Transform3D(-0.265, 0, -2.3167e-08, 0, 0.265, 0, 2.3167e-08, 0, -0.265, 0, -1.329, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 

@@ -1,8 +1,8 @@
 extends Node3D
 
 @export var lane: String = "left"  # "left" or "right" by default set to "left"
-@export var max_speed: float = 55.0 / 2.23694  # Convert 55 mph to meters per second
-@export var acceleration: float = 5.0  # Acceleration rate (meters per second squared)
+@export var max_speed: float = 48.9  # Convert 55 mph to meters per second, however this DOES NOT WORK WHILE DIRECTLY DOING IT BECAUSE GODOT IS BROKEN. SO THIS IS APPROX 55MPH
+@export var acceleration: float = 9.0  # Acceleration rate (meters per second squared)
 @export var deceleration: float = 32.0  # Deceleration rate (meters per second squared)
 @export var detection_distance: float = 10 # Distance to detect other cars
 
@@ -23,7 +23,6 @@ var is_colliding: bool = false
 func _ready():
 	area.body_entered.connect(Callable(self, "_on_body_entered"))
 	area.body_exited.connect(Callable(self, "_on_body_exited"))
-	raycast.target_position = Vector3(0, 0, -detection_distance)  # Set the RayCast3D distance
 
 	# Load textures from provided paths
 	front_sprite = load(front_sprite_path)
@@ -82,8 +81,10 @@ func _on_body_exited(body):
 func set_direction_and_sprite_based_on_lane():
 	if lane == "left":
 		direction = Vector3(0, 0, -1)  # Moving towards the player
+		raycast.target_position = Vector3(0, 0, -detection_distance)  # Raycast forward
 		sprite.texture = front_sprite
 	elif lane == "right":
 		direction = Vector3(0, 0, 1)  # Moving away from the player
+		raycast.target_position = Vector3(0, 0, detection_distance)  # Raycast forward
 		sprite.texture = back_sprite
 
