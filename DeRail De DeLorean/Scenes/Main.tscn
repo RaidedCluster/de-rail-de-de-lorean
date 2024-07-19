@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dv404o2sr2wva" path="res://Scenes/LevelElements/GuardrailsALotOfEm.tscn" id="8_jvvuv"]
 [ext_resource type="Texture2D" uid="uid://2jposuf4gfr3" path="res://Assets/Icons/Send Icon Gemini Transparent.png" id="9_in8nu"]
 [ext_resource type="PackedScene" uid="uid://blo0p61fn752x" path="res://Scenes/LevelElements/Creosote Bush.tscn" id="9_nh0sf"]
-[ext_resource type="PackedScene" uid="uid://c78cpjxgfkmcj" path="res://Route 66.tscn" id="10_q63fb"]
+[ext_resource type="PackedScene" uid="uid://c78cpjxgfkmcj" path="res://Scenes/LevelElements/Route 66.tscn" id="10_q63fb"]
 [ext_resource type="Texture2D" uid="uid://cipk1gmlhrkbo" path="res://Assets/Icons/Send Icon Gemini.png" id="12_yvhhw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jyod"]
@@ -58,7 +58,7 @@ sky = SubResource("Sky_f5pqw")
 script = ExtResource("1_bm6uy")
 
 [node name="DeLorean" parent="." instance=ExtResource("1_fy4vq")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.77973, 1.98714, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.78, 1.987, 0)
 
 [node name="CenterLineYellow1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.005, 4950)

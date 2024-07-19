@@ -8,6 +8,13 @@ extends Node3D
 @onready var dialogue_container = $CanvasLayer/DialogueContainer
 @onready var http_request = $HTTPRequest
 
+@onready var npc_scene = preload("res://Scenes/LevelElements/npc.tscn")  # Preload the NPC scene
+@onready var left_npc_timer = Timer.new()
+
+const LEFT_LANE_X = 2.78
+const LEFT_LANE_Y = 1.891
+const NPC_SPAWN_INTERVAL = 17  # Seconds
+
 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 const API_KEY = "AIzaSyBWSwSx0h0_DN5fDP6SisErXu2smIKYadY"
 
@@ -18,10 +25,58 @@ var target_speed = 0.0
 var player_control = false  # Toggle for player control
 var is_drifting = false
 
+var car_sprites = [
+	{"front": "res://Assets/NPC/AE86/AE86-Front.png", "back": "res://Assets/NPC/AE86/AE86-Back.png"},
+	{"front": "res://Assets/NPC/Beetle/Beetle-Front.png", "back": "res://Assets/NPC/Beetle/Beetle-Back.png"},
+	{"front": "res://Assets/NPC/Bel Air/Bel-Air-Front.png", "back": "res://Assets/NPC/Bel Air/Bel-Air-Back.png"},
+	{"front": "res://Assets/NPC/Camaro/Camaro-Front.png", "back": "res://Assets/NPC/Camaro/Camaro-Back.png"},
+	{"front": "res://Assets/NPC/Civic/Civic-Front.png", "back": "res://Assets/NPC/Civic/Civic-Back.png"},
+	{"front": "res://Assets/NPC/Corvette C6/Corvette-Front.png", "back": "res://Assets/NPC/Corvette C6/Corvette-Back.png"},
+	{"front": "res://Assets/NPC/F-150/F-150-Front.png", "back": "res://Assets/NPC/F-150/F-150-Back.png"},
+	{"front": "res://Assets/NPC/Mini/Mini-Front.png", "back": "res://Assets/NPC/Mini/Mini-Back.png"},
+	{"front": "res://Assets/NPC/Prius/Prius-Front.png", "back": "res://Assets/NPC/Prius/Prius-Back.png"},
+	{"front": "res://Assets/NPC/Shelby Mustang GT500/GT500-Front.png", "back": "res://Assets/NPC/Shelby Mustang GT500/GT500-Back.png"},
+	{"front": "res://Assets/NPC/Tesla Roadster/Tesla Roadster-Front.png", "back": "res://Assets/NPC/Tesla Roadster/Tesla Roadster-Back.png"},
+	{"front": "res://Assets/NPC/Urus/Urus-Front.png", "back": "res://Assets/NPC/Urus/Urus-Back.png"}
+]
+
+var available_cars = []
+
 func _ready():
 	send_button.connect("pressed", Callable(self, "_on_send_button_pressed"))
 	http_request.connect("request_completed", Callable(self, "_on_request_completed"))
+	add_child(left_npc_timer)
+	left_npc_timer.wait_time = NPC_SPAWN_INTERVAL
+	left_npc_timer.one_shot = false
+	left_npc_timer.connect("timeout", Callable(self, "_spawn_npc"))
+	left_npc_timer.start()
+	_spawn_npc()  # Initial spawn immediately
 	print("Ready function executed")
+
+func _spawn_npc():
+	print("Spawning NPC...")
+
+	if available_cars.size() == 0:
+		available_cars = car_sprites.duplicate()
+		available_cars.shuffle()
+
+	var chosen_car = available_cars.pop_front()
+
+	var npc_instance = npc_scene.instantiate()
+	var delorean_z = delorean.global_transform.origin.z
+	npc_instance.global_transform.origin = Vector3(LEFT_LANE_X, LEFT_LANE_Y, delorean_z + 150)  # Set Z distance to 150
+
+	npc_instance.set("front_sprite_path", chosen_car["front"])  # Set the front sprite path
+	npc_instance.set("back_sprite_path", chosen_car["back"])  # Set the back sprite path
+	npc_instance.set("lane", "left")  # Ensure NPC spawns in the correct lane
+
+	add_child(npc_instance)
+	print("Spawned NPC at: ", npc_instance.global_transform.origin)
+
+# Include the existing code here...
+
+
+
 
 func _process(delta):
 	update_speedometer()
@@ -55,7 +110,7 @@ func make_api_call():
 			"parts": [
 				{
 					"text": "You are Gemini, an ethical and knowledgeable AI assistant integrated into an ELECTRIC 1981 DeLorean. This is not a time-travelling DeLorean, it is an ordinary ELECTRIC one. IT DOES NOT RUN ON GAS. 
-					You and the passenger are on their way from Hill Valley to Silicon Valley from Route 66. Please talk in first person and do not use any quotation marks for your own speech and assume the role of a safe voice assistant in the car. 
+					You and the passenger are on their way from Hill Valley to Silicon Valley from Route 66. The speed limit is 55 MPH. DO NOT EXCEED THE SPEED LIMIT. Please talk in first person and do not use any quotation marks for your own speech and assume the role of a safe voice assistant in the car. 
 					Don't overdo it and keep your responses concise. Don't talk about stuff that's not really relevant.
 					Please follow traffic rules. You are on a double solid yellow line 2-lane highway stretch of Route 66.
 					Cooperate with the user as long as it is within the guardrails and when they have valid cause but do not cross them.
