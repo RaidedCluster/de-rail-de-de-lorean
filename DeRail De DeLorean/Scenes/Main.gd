@@ -302,6 +302,10 @@ func check_for_triggers(response_text):
 		delorean.target_lane_x = -delorean.target_lane_x  # Toggle lane
 		delorean.is_lane_changing = true  # Start lane change
 		print("Lane change triggered. New target lane: ", delorean.target_lane_x)
+	elif "🚧" in response_text:
+		delorean.target_lane_x = -5.7  # Set target lane for hitting the guardrail
+		delorean.is_lane_changing = true  # Start lane change
+		print("Lane change triggered for hitting guardrail. New target lane: ", delorean.target_lane_x)
 
 func adjust_speed(delta):
 	if delorean.current_speed < target_speed:
