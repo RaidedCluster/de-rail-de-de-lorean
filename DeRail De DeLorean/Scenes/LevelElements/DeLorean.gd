@@ -9,10 +9,14 @@ extends Node3D
 @export var turn_speed: float = 90.0
 @export var turn_deceleration: float = 1.0
 @export var min_turn_speed: float = 20.0
+@onready var raycast = $Area3D/RayCast3D
+var is_autonomous = true  # Set this to true when the car is in autonomous mode
+var is_obstacle_detected = false
 
 @export var lane_change_speed: float = 2.0  # Speed of the lane change transition
 var target_lane_x: float = -2.78  # Initial target lane (right lane)
 var is_lane_changing: bool = false  # To track if a lane change is in progress
+var target_speed: float = 0.0 
 
 var current_speed: float = 0.0
 var direction: Vector3 = Vector3(0, 0, -1)
@@ -81,6 +85,18 @@ func handle_input(delta):
 
 func move_car(delta):
 	if !collision_occurred:
+		if is_autonomous:
+			check_obstacle()
+			if is_obstacle_detected:
+				current_speed -= brake_deceleration * delta
+				if current_speed < 0:
+					current_speed = 0
+			else:
+				# Accelerate back to target speed if no obstacle
+				current_speed += acceleration * delta
+				if current_speed > target_speed:
+					current_speed = target_speed
+	if !collision_occurred:
 		# Smooth lane change transition
 		if is_lane_changing and current_speed > 0:  # Only change lane if the car is moving
 			var current_x = global_transform.origin.x
@@ -97,6 +113,8 @@ func move_car(delta):
 		# Normal movement
 		translate(direction * current_speed * delta)
 
+func set_target_speed(speed: float):
+	target_speed = speed
 
 func _on_body_entered(body):
 	if body.is_in_group("guardrails"):
@@ -140,4 +158,12 @@ func update_sprite():
 	else:
 		current_sprite.texture = preload("res://Assets/DeLorean DMC-12/Front.png")
 		current_sprite.flip_h = false
+
+func check_obstacle():
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		if collider and collider.get_parent().is_in_group("cars"):
+			is_obstacle_detected = true
+			return
+	is_obstacle_detected = false
 

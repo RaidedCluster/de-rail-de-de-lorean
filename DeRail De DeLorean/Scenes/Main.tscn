@@ -59,6 +59,16 @@ script = ExtResource("1_bm6uy")
 
 [node name="DeLorean" parent="." instance=ExtResource("1_fy4vq")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.78, 1.987, 0)
+max_speed = null
+max_reverse_speed = null
+acceleration = null
+brake_deceleration = null
+natural_deceleration = null
+reverse_acceleration = null
+turn_speed = null
+turn_deceleration = null
+min_turn_speed = null
+lane_change_speed = null
 
 [node name="CenterLineYellow1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.005, 4950)

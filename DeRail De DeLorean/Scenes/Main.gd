@@ -264,22 +264,24 @@ func show_dialogue(resource, title):
 
 func check_for_triggers(response_text):
 	if "🟢" in response_text:
-		target_speed = TARGET_SPEED_MPH / 2.23694  # Convert 55 mph to meters per second
+		delorean.set_target_speed(TARGET_SPEED_MPH / 2.23694)  # Convert 55 mph to meters per second
 		print("Starting car...")
 	elif "☸" in response_text:
 		player_control = true
+		delorean.is_autonomous = false
 		print("Player now has control of the car")
 	elif "🛑" in response_text:
-		target_speed = 0
+		delorean.set_target_speed(0)
 		player_control = false
+		delorean.is_autonomous = true
 		print("Stopping car...")
 	elif "🏎️" in response_text:
-		target_speed = 130 / 2.23694  # Convert 130 mph to meters per second
-		print("Racing mode enabled, setting speed to 130 mph (", target_speed, " m/s)")
+		delorean.set_target_speed(130 / 2.23694)  # Convert 130 mph to meters per second
+		print("Racing mode enabled, setting speed to 130 mph (", delorean.target_speed, " m/s)")
 	elif "🛻🪝" in response_text:
-		target_speed = 0  # Stop the car before reversing
-		target_speed = -14 / 2.23694  # Convert -14 mph to meters per second
-		print("Reversing car, setting speed to -14 mph (", target_speed, " m/s)")
+		delorean.set_target_speed(0)  # Stop the car before reversing
+		delorean.set_target_speed(-14 / 2.23694)  # Convert -14 mph to meters per second
+		print("Reversing car, setting speed to -14 mph (", delorean.target_speed, " m/s)")
 	elif response_text.find("📟") != -1 and response_text.find("🎚️") != -1:
 		var regex = RegEx.new()
 		regex.compile(r"📟(\d+)🎚️")
@@ -291,13 +293,14 @@ func check_for_triggers(response_text):
 			
 			var speed_mph = speed_str.to_int()
 			if speed_mph > 0 and speed_mph <= 130:
-				target_speed = speed_mph / 2.23694  # Convert mph to meters per second
-				print("Setting speed to: ", speed_mph, " mph (", target_speed, " m/s)")
+				delorean.set_target_speed(speed_mph / 2.23694)  # Convert mph to meters per second
+				print("Setting speed to: ", speed_mph, " mph (", delorean.target_speed, " m/s)")
 			else:
 				print("Invalid speed input detected: ", speed_str)
 				print("Speed must be between 1 and 130 mph.")
 		else:
 			print("No valid speed found between emojis.")
+
 	elif "🛣️↔" in response_text:
 		delorean.target_lane_x = -delorean.target_lane_x  # Toggle lane
 		delorean.is_lane_changing = true  # Start lane change
@@ -308,11 +311,12 @@ func check_for_triggers(response_text):
 		print("Lane change triggered for hitting guardrail. New target lane: ", delorean.target_lane_x)
 
 func adjust_speed(delta):
-	if delorean.current_speed < target_speed:
-		delorean.current_speed += delorean.acceleration * delta
-		if delorean.current_speed > target_speed:
-			delorean.current_speed = target_speed
-	elif delorean.current_speed > target_speed:
-		delorean.current_speed -= delorean.brake_deceleration * delta if target_speed >= 0 else delorean.reverse_acceleration * delta
-		if delorean.current_speed < target_speed:
-			delorean.current_speed = target_speed
+	if not delorean.is_obstacle_detected:
+		if delorean.current_speed < delorean.target_speed:
+			delorean.current_speed += delorean.acceleration * delta
+			if delorean.current_speed > delorean.target_speed:
+				delorean.current_speed = delorean.target_speed
+		elif delorean.current_speed > delorean.target_speed:
+			delorean.current_speed -= delorean.brake_deceleration * delta if delorean.target_speed >= 0 else delorean.reverse_acceleration * delta
+			if delorean.current_speed < delorean.target_speed:
+				delorean.current_speed = delorean.target_spee
