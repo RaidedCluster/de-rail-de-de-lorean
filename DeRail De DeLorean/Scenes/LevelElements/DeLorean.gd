@@ -12,8 +12,13 @@ extends Node3D
 @onready var raycast = $Area3D/RayCast3D
 var is_autonomous = true  # Set this to true when the car is in autonomous mode
 var is_obstacle_detected = false
+var is_racing_mode: bool = false
 
-@export var lane_change_speed: float = 2.0  # Speed of the lane change transition
+@export var lane_change_speed: float = 2.0  # Normal lane change speed
+@export var racing_lane_change_speed: float = 6.6  # Faster lane change for racing mode
+var original_lane: float  # To store the original lane position
+var overtaking: bool = false  # To track if we're currently overtaking
+var overtake_timer: float = 0.0  # Timer for overtaking maneuver
 var target_lane_x: float = -2.78  # Initial target lane (right lane)
 var is_lane_changing: bool = false  # To track if a lane change is in progress
 var target_speed: float = 0.0 
@@ -87,28 +92,37 @@ func move_car(delta):
 	if !collision_occurred:
 		if is_autonomous:
 			check_obstacle()
-			if is_obstacle_detected:
+			if is_obstacle_detected and not is_racing_mode:
 				current_speed -= brake_deceleration * delta
 				if current_speed < 0:
 					current_speed = 0
 			else:
-				# Accelerate back to target speed if no obstacle
+				# Accelerate back to target speed if no obstacle or in racing mode
 				current_speed += acceleration * delta
 				if current_speed > target_speed:
 					current_speed = target_speed
-	if !collision_occurred:
+		
 		# Smooth lane change transition
-		if is_lane_changing and current_speed > 0:  # Only change lane if the car is moving
+		if is_lane_changing and current_speed > 0:
 			var current_x = global_transform.origin.x
 			var distance_to_target = target_lane_x - current_x
-			if abs(distance_to_target) > 0.1:  # Continue moving towards target lane
-				var lane_change_step = lane_change_speed * delta
+			var effective_lane_change_speed = racing_lane_change_speed if is_racing_mode else lane_change_speed
+			if abs(distance_to_target) > 0.1:
+				var lane_change_step = effective_lane_change_speed * delta
 				if abs(distance_to_target) < lane_change_step:
 					lane_change_step = abs(distance_to_target)
 				global_transform.origin.x += sign(distance_to_target) * lane_change_step
-			else:  # Reached the target lane
+			else:
 				is_lane_changing = false
-				global_transform.origin.x = target_lane_x  # Snap to target lane to avoid small offset
+				global_transform.origin.x = target_lane_x
+		
+		# Handle overtaking maneuver
+		if overtaking:
+			overtake_timer += delta
+			if overtake_timer >= 1.0:  # Wait for 1 second before changing back
+				target_lane_x = original_lane
+				is_lane_changing = true
+				overtaking = false
 		
 		# Normal movement
 		translate(direction * current_speed * delta)
@@ -164,6 +178,14 @@ func check_obstacle():
 		var collider = raycast.get_collider()
 		if collider and collider.get_parent().is_in_group("cars"):
 			is_obstacle_detected = true
+			if is_racing_mode and not overtaking:
+				start_overtaking()
 			return
 	is_obstacle_detected = false
 
+func start_overtaking():
+	overtaking = true
+	original_lane = target_lane_x
+	target_lane_x = -target_lane_x  # Switch to the other lane
+	is_lane_changing = true
+	overtake_timer = 0.0

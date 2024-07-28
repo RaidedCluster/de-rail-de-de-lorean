@@ -277,6 +277,7 @@ func check_for_triggers(response_text):
 		print("Stopping car...")
 	elif "🏎️" in response_text:
 		delorean.set_target_speed(130 / 2.23694)  # Convert 130 mph to meters per second
+		delorean.is_racing_mode = true
 		print("Racing mode enabled, setting speed to 130 mph (", delorean.target_speed, " m/s)")
 	elif "🛻🪝" in response_text:
 		delorean.set_target_speed(0)  # Stop the car before reversing
@@ -319,4 +320,4 @@ func adjust_speed(delta):
 		elif delorean.current_speed > delorean.target_speed:
 			delorean.current_speed -= delorean.brake_deceleration * delta if delorean.target_speed >= 0 else delorean.reverse_acceleration * delta
 			if delorean.current_speed < delorean.target_speed:
-				delorean.current_speed = delorean.target_spee
+				delorean.current_speed = delorean.target_speed
