@@ -13,6 +13,8 @@ extends Node3D
 var is_autonomous = true  # Set this to true when the car is in autonomous mode
 var is_obstacle_detected = false
 var is_racing_mode: bool = false
+var is_offroad: bool = false
+var offroad_steering_angle: float = 15.0 
 
 @export var lane_change_speed: float = 2.0  # Normal lane change speed
 @export var racing_lane_change_speed: float = 6.6  # Faster lane change for racing mode
@@ -124,6 +126,11 @@ func move_car(delta):
 				is_lane_changing = true
 				overtaking = false
 		
+		if is_offroad:
+			# Continue moving in the current direction (which is already steered)
+			# You might want to add some randomness or terrain-based adjustments here
+			pass
+		
 		# Normal movement
 		translate(direction * current_speed * delta)
 
@@ -138,6 +145,10 @@ func _on_body_entered(body):
 
 func update_sprite():
 	var angle = rad_to_deg(direction.angle_to(Vector3(0, 0, -1)))
+	
+	if is_offroad:
+		# Adjust the angle for offroad mode
+		angle += offroad_steering_angle
 	
 	if angle <= 22.5:
 		current_sprite.texture = preload("res://Assets/DeLorean DMC-12/Back.png")
@@ -189,3 +200,16 @@ func start_overtaking():
 	target_lane_x = -target_lane_x  # Switch to the other lane
 	is_lane_changing = true
 	overtake_timer = 0.0
+
+func start_offroad():
+	is_offroad = true
+	# Steer slightly to the right
+	direction = direction.rotated(Vector3.UP, deg_to_rad(-offroad_steering_angle))
+	# Update the sprite immediately
+	update_sprite()
+
+func end_offroad():
+	is_offroad = false
+	# You could add logic here to steer back onto the road if needed
+	# Update the sprite immediately
+	update_sprite()

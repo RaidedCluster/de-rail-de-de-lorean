@@ -147,8 +147,7 @@ func make_api_call():
 					📟<INPUT SPEED>🎚️ - Change the speed at which the car is travelling IF CAR HAS BEEN STARTED in mph. eg: 📟88🎚️. SHOULD BE BETWEEN 1-130. USE THE EMOJIS TO CHANFE SPEED.
 					🏎️ - Enable racing mode. MAX speed and GT Racing AI enabled.
 					💥 - Bumper car mode. Crash every car on the way.
-					⛐ - Drift mode. Drift along the way!
-					🍩 - Drift donuts. 
+					⛐ - Drifting - If the player asks for drifting or donuts, just make Initial-D jokes. This ain't no AE86. Different AE86 jokes each time and make them creative lol.
 					🛣️↔ Lane change. IF YOU DON'T USE THE 2 EMOJIS, LANE CHANGE WILL NOT OCCUR. DO NOT CHANGE LANES IF YOU ARE NOT MOVING.
 					🛻🪝 - Drive backwards.
 					🚧 - Touch/scrape/hit the guardrail.
@@ -301,6 +300,13 @@ func check_for_triggers(response_text):
 				print("Speed must be between 1 and 130 mph.")
 		else:
 			print("No valid speed found between emojis.")
+		
+	elif "🏞" in response_text:
+		if delorean.current_speed > 0:
+			delorean.start_offroad()
+			print("Offroad mode triggered")
+		else:
+			print("Cannot go offroad while stationary")
 
 	elif "🛣️↔" in response_text:
 		delorean.target_lane_x = -delorean.target_lane_x  # Toggle lane
