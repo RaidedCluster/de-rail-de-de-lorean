@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c0rpmf1fpurmw"]
+[gd_scene load_steps=29 format=3 uid="uid://c0rpmf1fpurmw"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_bm6uy"]
 [ext_resource type="PackedScene" uid="uid://bpjrmrmr72q4t" path="res://Scenes/LevelElements/DeLorean.tscn" id="1_fy4vq"]
@@ -13,6 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://blo0p61fn752x" path="res://Scenes/LevelElements/Creosote Bush.tscn" id="9_nh0sf"]
 [ext_resource type="PackedScene" uid="uid://c78cpjxgfkmcj" path="res://Scenes/LevelElements/Route 66.tscn" id="10_q63fb"]
 [ext_resource type="Texture2D" uid="uid://cipk1gmlhrkbo" path="res://Assets/Icons/Send Icon Gemini.png" id="12_yvhhw"]
+[ext_resource type="PackedScene" uid="uid://byrtbqep14fq4" path="res://Scenes/LevelElements/mc_donalds.tscn" id="14_vcxv0"]
+[ext_resource type="PackedScene" uid="uid://ca578kalc0g5v" path="res://Scenes/LevelElements/gas_station.tscn" id="15_8dkc6"]
+[ext_resource type="PackedScene" uid="uid://crpnq62o3a232" path="res://Scenes/LevelElements/Diner.tscn" id="16_h5q8a"]
+[ext_resource type="PackedScene" uid="uid://cnq6lnm1ats3v" path="res://Scenes/LevelElements/kfc.tscn" id="17_5ctcd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jyod"]
 albedo_color = Color(1, 1, 0, 1)
@@ -8862,3 +8866,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 9943)
 transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, -7, 0, 10)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="McDonalds" parent="." instance=ExtResource("14_vcxv0")]
+transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, 33.7935, 0, 116.361)
+
+[node name="GasStation" parent="." instance=ExtResource("15_8dkc6")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -29.6329, 0, 440.869)
+
+[node name="Diner" parent="." instance=ExtResource("16_h5q8a")]
+transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, 26.8035, 0, 902.402)
+
+[node name="KFC" parent="." instance=ExtResource("17_5ctcd")]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -26.2622, 0, 1349.52)

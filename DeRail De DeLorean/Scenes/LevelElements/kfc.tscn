@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnq6lnm1ats3v"]
+
+[ext_resource type="Texture2D" uid="uid://cb7k4ysd2n67f" path="res://Assets/Textures/KFC_Asset.png" id="1_mt5au"]
+
+[node name="KFC" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16423, 0)
+texture = ExtResource("1_mt5au")

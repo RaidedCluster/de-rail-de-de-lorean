@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca578kalc0g5v"]
+
+[ext_resource type="Texture2D" uid="uid://cian1wnyg0q76" path="res://Assets/Textures/Gas_Station_Asset.png" id="1_bp4u4"]
+
+[node name="GasStation" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52306, 0)
+texture = ExtResource("1_bp4u4")

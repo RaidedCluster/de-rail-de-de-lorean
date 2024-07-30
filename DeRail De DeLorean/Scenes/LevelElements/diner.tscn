@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://crpnq62o3a232"]
+[gd_scene load_steps=2 format=3 uid="uid://crpnq62o3a232"]
+
+[ext_resource type="Texture2D" uid="uid://bcrwwe80xff5m" path="res://Assets/Textures/Diner Asset.png" id="1_p3ea5"]
 
 [node name="Diner" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.39317, 0)
+texture = ExtResource("1_p3ea5")
