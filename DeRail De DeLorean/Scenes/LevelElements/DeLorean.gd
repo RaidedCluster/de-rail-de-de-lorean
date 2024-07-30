@@ -99,10 +99,15 @@ func move_car(delta):
 				if current_speed < 0:
 					current_speed = 0
 			else:
-				# Accelerate back to target speed if no obstacle or in racing mode
-				current_speed += acceleration * delta
-				if current_speed > target_speed:
-					current_speed = target_speed
+				# Adjust speed towards the target speed
+				if current_speed < target_speed:
+					current_speed += acceleration * delta
+					if current_speed > target_speed:
+						current_speed = target_speed
+				elif current_speed > target_speed:
+					current_speed -= brake_deceleration * delta
+					if current_speed < target_speed:
+						current_speed = target_speed
 		
 		# Smooth lane change transition
 		if is_lane_changing and current_speed > 0:
