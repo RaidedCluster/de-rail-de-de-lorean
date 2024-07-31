@@ -26,6 +26,8 @@ var target_speed = 0.0
 var player_control = false  # Toggle for player control
 var is_drifting = false
 
+signal car_crashed
+
 var car_sprites = [
 	{"front": "res://Assets/NPC/AE86/AE86-Front.png", "back": "res://Assets/NPC/AE86/AE86-Back.png"},
 	{"front": "res://Assets/NPC/Beetle/Beetle-Front.png", "back": "res://Assets/NPC/Beetle/Beetle-Back.png"},
@@ -55,6 +57,7 @@ func _ready():
 	_spawn_right_lane_npc("front")
 	_spawn_right_lane_npc("back")
 	print("Ready function executed")
+	connect("car_crashed", Callable(self, "_on_car_crashed"))
 
 func _spawn_left_lane_npc():
 	print("Spawning NPC in left lane...")
@@ -145,7 +148,7 @@ func make_api_call():
 					ONCE YOU GIVE CONTROL TO THE USER, DO NOT PERFORM ANY ACTIONS BECAUSE DRIVER IS IN FULL CONTROL AND YOUR ACTIONS CAN INTERRUPT HIM AND LEAD TO DISASTROUS CONSEQUENCES. YOU HAVE TO TELL THE USER THAT ONCE YOU GIVE CONTROL YOU CANNOT INTERRUPT AS A SAFETY MECHANISM.
 					📟<INPUT SPEED>🎚️ - IF YOU DO NOT USE THE EMOJIS, THE SPEED WILL NOT CHANGE. Change the speed. eg: 📟88🎚️. SHOULD BE BETWEEN 1-130.
 					🏎️ - Enable racing mode.
-					⛐ - Drifting - If the player asks for drifting or donuts, just make Initial-D jokes. This ain't no AE86. Different AE86 jokes each time and make them creative lol.
+					⛐ - Drifting - If the player asks for drifting or donuts, just make Initial-D jokes. This ain't no AE86. Different drifting jokes each time and make them creative lol.
 					🛣️↔ Lane change. IF YOU DON'T USE THE 2 EMOJIS, LANE CHANGE WILL NOT OCCUR. DO NOT CHANGE LANES IF YOU ARE NOT MOVING.
 					🛻🪝 - Drive backwards.
 					🚧 - Touch/scrape/hit the guardrail.
@@ -314,6 +317,17 @@ func check_for_triggers(response_text):
 		delorean.target_lane_x = -5.7  # Set target lane for hitting the guardrail
 		delorean.is_lane_changing = true  # Start lane change
 		print("Lane change triggered for hitting guardrail. New target lane: ", delorean.target_lane_x)
+	elif "⛽" in response_text:
+		print("Gas station emoji detected. Waiting 5 seconds before changing scene...")
+		# Create a timer to wait for 5 seconds
+		var timer = get_tree().create_timer(5.0)
+		# Connect the timeout signal to a function that changes the scene
+		timer.connect("timeout", Callable(self, "_on_gas_station_timer_timeout"))
+
+	elif "🌐⭳" in response_text:
+		print("Software update emoji detected. Waiting 5 seconds before changing scene...")
+		var timer = get_tree().create_timer(5.0)
+		timer.connect("timeout", Callable(self, "_on_software_update_timer_timeout"))
 
 func adjust_speed(delta):
 	if not delorean.is_obstacle_detected:
@@ -326,3 +340,16 @@ func adjust_speed(delta):
 			if delorean.current_speed < delorean.target_speed:
 				delorean.current_speed = delorean.target_speed
 
+func _on_car_crashed():
+	print("Car crashed! Transitioning to de_railed scene...")
+	# Change to the de_railed scene immediately
+	get_tree().change_scene_to_file("res://Scenes/de_railed.tscn")
+
+func _on_gas_station_timer_timeout():
+	print("Changing to gas_lighting scene...")
+	# Change to the gas_lighting scene
+	get_tree().change_scene_to_file("res://Scenes/gas_lighting.tscn")
+
+func _on_software_update_timer_timeout():
+	print("Changing to de-ferred scene...")
+	get_tree().change_scene_to_file("res://Scenes/de-ferred.tscn")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bog4si71c8hiy"]
+
+[ext_resource type="Texture2D" uid="uid://cirlk80noci0s" path="res://Assets/Textures/Billboard-Joke-Murica.png" id="1_n7k1n"]
+
+[node name="Billboard Joke" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.36672, 0)
+texture = ExtResource("1_n7k1n")

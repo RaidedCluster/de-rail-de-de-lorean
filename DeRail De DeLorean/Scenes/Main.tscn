@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c0rpmf1fpurmw"]
+[gd_scene load_steps=37 format=3 uid="uid://c0rpmf1fpurmw"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_bm6uy"]
 [ext_resource type="PackedScene" uid="uid://bpjrmrmr72q4t" path="res://Scenes/LevelElements/DeLorean.tscn" id="1_fy4vq"]
@@ -17,6 +17,14 @@
 [ext_resource type="PackedScene" uid="uid://ca578kalc0g5v" path="res://Scenes/LevelElements/gas_station.tscn" id="15_8dkc6"]
 [ext_resource type="PackedScene" uid="uid://crpnq62o3a232" path="res://Scenes/LevelElements/Diner.tscn" id="16_h5q8a"]
 [ext_resource type="PackedScene" uid="uid://cnq6lnm1ats3v" path="res://Scenes/LevelElements/kfc.tscn" id="17_5ctcd"]
+[ext_resource type="PackedScene" uid="uid://bog4si71c8hiy" path="res://Scenes/LevelElements/billboard_joke.tscn" id="18_ocee1"]
+[ext_resource type="PackedScene" uid="uid://docaawrjppg5a" path="res://Scenes/LevelElements/burger_king.tscn" id="19_2opjx"]
+[ext_resource type="PackedScene" uid="uid://bj256vbscct1r" path="res://Scenes/LevelElements/taco_bell.tscn" id="20_y6r0q"]
+[ext_resource type="PackedScene" uid="uid://df8qu430ui151" path="res://Scenes/LevelElements/billboard_game_dev.tscn" id="21_4ewn8"]
+[ext_resource type="PackedScene" uid="uid://dm6o2nubpun4g" path="res://Scenes/LevelElements/speed_limit_sign.tscn" id="22_c7lte"]
+[ext_resource type="PackedScene" uid="uid://dxngknd5pb586" path="res://Scenes/LevelElements/fnaf.tscn" id="23_rt8e6"]
+[ext_resource type="PackedScene" uid="uid://b21faax1j32pv" path="res://Scenes/LevelElements/hill_valley_sign.tscn" id="24_g10eg"]
+[ext_resource type="PackedScene" uid="uid://by68dhxqd2dhs" path="res://Scenes/LevelElements/clock_tower.tscn" id="25_pdslt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jyod"]
 albedo_color = Color(1, 1, 0, 1)
@@ -8878,3 +8886,33 @@ transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, 26.803
 
 [node name="KFC" parent="." instance=ExtResource("17_5ctcd")]
 transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -26.2622, 0, 1349.52)
+
+[node name="Billboard Joke" parent="." instance=ExtResource("18_ocee1")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 23.1017, 0, 1794.75)
+
+[node name="Burger King" parent="." instance=ExtResource("19_2opjx")]
+transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, -37.9019, 0, 2211.26)
+
+[node name="Taco Bell" parent="." instance=ExtResource("20_y6r0q")]
+transform = Transform3D(-3, 0, -2.62268e-07, 0, 3, 0, 2.62268e-07, 0, -3, 30.6108, 0, 2971.59)
+
+[node name="Billboard GameDev" parent="." instance=ExtResource("21_4ewn8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -17.285, 0, 4047.25)
+
+[node name="GuardrailsLotOfEm3" parent="." instance=ExtResource("8_jvvuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 3000)
+
+[node name="GuardrailsLotOfEm4" parent="." instance=ExtResource("8_jvvuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 3000)
+
+[node name="Speed Limit Sign" parent="." instance=ExtResource("22_c7lte")]
+transform = Transform3D(-0.7, 0, -6.11959e-08, 0, 0.7, 0, 6.11959e-08, 0, -0.7, -9.45322, 0.586998, 5164.85)
+
+[node name="FNAF" parent="." instance=ExtResource("23_rt8e6")]
+transform = Transform3D(-3, 0, -2.62268e-07, 0, 3, 0, 2.62268e-07, 0, -3, 30.2434, 0, 5346.33)
+
+[node name="Hill Valley Sign" parent="." instance=ExtResource("24_g10eg")]
+transform = Transform3D(-0.4, 0, -3.49691e-08, 0, 0.4, 0, 3.49691e-08, 0, -0.4, -8.90354, 0, 8746.43)
+
+[node name="Clock Tower" parent="." instance=ExtResource("25_pdslt")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 48.5286, 0, 9948.85)

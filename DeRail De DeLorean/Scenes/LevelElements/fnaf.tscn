@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxngknd5pb586"]
+
+[ext_resource type="Texture2D" uid="uid://cpb0mr2r6upbe" path="res://Assets/Textures/FNAF.png" id="1_73bbq"]
+
+[node name="FNAF" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68625, 0)
+texture = ExtResource("1_73bbq")

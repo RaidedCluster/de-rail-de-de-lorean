@@ -15,6 +15,7 @@ var is_obstacle_detected = false
 var is_racing_mode: bool = false
 var is_offroad: bool = false
 var offroad_steering_angle: float = 15.0 
+var has_crashed = false
 
 @export var lane_change_speed: float = 2.0  # Normal lane change speed
 @export var racing_lane_change_speed: float = 6.6  # Faster lane change for racing mode
@@ -35,9 +36,10 @@ func _ready():
 	current_sprite = $Sprite3D
 	$Camera3D.current = true
 	$Area3D.connect("body_entered", Callable(self, "_on_body_entered"))
+	$Area3D.connect("area_entered", Callable(self, "_on_area_entered"))
 
 func _process(delta):
-	if !collision_occurred:
+	if !has_crashed:
 		if player_control:
 			handle_input(delta)
 		move_car(delta)
@@ -144,9 +146,11 @@ func set_target_speed(speed: float):
 
 func _on_body_entered(body):
 	if body.is_in_group("guardrails"):
-		current_speed = 0
-		collision_occurred = true
-		print("Collision detected with: ", body.name)
+		trigger_crash(body)
+
+func _on_area_entered(area):
+	if area.get_parent().is_in_group("cars"):
+		trigger_crash(area.get_parent())
 
 func update_sprite():
 	var angle = rad_to_deg(direction.angle_to(Vector3(0, 0, -1)))
@@ -218,3 +222,12 @@ func end_offroad():
 	# You could add logic here to steer back onto the road if needed
 	# Update the sprite immediately
 	update_sprite()
+
+func trigger_crash(object):
+	if !has_crashed:
+		has_crashed = true
+		current_speed = 0
+		collision_occurred = true
+		print("Collision detected with: ", object.name)
+		# Emit a signal to notify the Main scene about the crash
+		get_parent().emit_signal("car_crashed")

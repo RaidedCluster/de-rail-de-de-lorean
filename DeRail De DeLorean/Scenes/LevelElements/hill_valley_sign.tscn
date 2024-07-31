@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b21faax1j32pv"]
+
+[ext_resource type="Texture2D" uid="uid://btv585jcv3p4p" path="res://Assets/Textures/Hill Valley Sign.png" id="1_6ln7n"]
+
+[node name="Hill Valley Sign" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0319538, 5.52801, 0)
+texture = ExtResource("1_6ln7n")
