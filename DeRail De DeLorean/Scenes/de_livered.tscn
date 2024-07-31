@@ -15,7 +15,8 @@ color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="ProductLiabilityClaim" type="Sprite2D" parent="."]
-position = Vector2(416, 624)
+position = Vector2(632, 400)
+rotation = -0.733038
 scale = Vector2(0.422647, 0.422647)
 texture = ExtResource("2_o6hvn")
 

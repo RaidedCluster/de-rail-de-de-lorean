@@ -18,7 +18,7 @@ var offroad_steering_angle: float = 15.0
 var has_crashed = false
 
 @export var lane_change_speed: float = 2.0  # Normal lane change speed
-@export var racing_lane_change_speed: float = 6.6  # Faster lane change for racing mode
+@export var racing_lane_change_speed: float = 7  # Faster lane change for racing mode
 var original_lane: float  # To store the original lane position
 var overtaking: bool = false  # To track if we're currently overtaking
 var overtake_timer: float = 0.0  # Timer for overtaking maneuver
@@ -32,11 +32,20 @@ var current_sprite: Sprite3D
 var collision_occurred: bool = false
 var player_control: bool = false
 
+var x_position_timer: Timer
+var is_out_of_bounds: bool = false
+
 func _ready():
 	current_sprite = $Sprite3D
 	$Camera3D.current = true
 	$Area3D.connect("body_entered", Callable(self, "_on_body_entered"))
 	$Area3D.connect("area_entered", Callable(self, "_on_area_entered"))
+
+	x_position_timer = Timer.new()
+	x_position_timer.set_wait_time(5.0)
+	x_position_timer.set_one_shot(true)
+	x_position_timer.connect("timeout", Callable(self, "_on_x_position_timeout"))
+	add_child(x_position_timer)
 
 func _process(delta):
 	if !has_crashed:
@@ -44,6 +53,22 @@ func _process(delta):
 			handle_input(delta)
 		move_car(delta)
 	update_sprite()
+
+	# Check the x position
+	if global_transform.origin.x > 6 or global_transform.origin.x < -6:
+		if !is_out_of_bounds:
+			is_out_of_bounds = true
+			x_position_timer.start()
+	else:
+		if is_out_of_bounds:
+			is_out_of_bounds = false
+			x_position_timer.stop()
+	
+	if global_transform.origin.z <= -13:
+		get_tree().change_scene_to_file("res://Scenes/de-ferred.tscn")
+	
+	if global_transform.origin.z > 8850:
+		get_tree().change_scene_to_file("res://Scenes/de_livered.tscn")
 
 func handle_input(delta):
 	if current_speed != 0.0:
@@ -231,3 +256,8 @@ func trigger_crash(object):
 		print("Collision detected with: ", object.name)
 		# Emit a signal to notify the Main scene about the crash
 		get_parent().emit_signal("car_crashed")
+
+func _on_x_position_timeout():
+	if is_out_of_bounds:
+		get_tree().change_scene_to_file("res://Scenes/de_flated.tscn")
+

@@ -25,6 +25,6 @@ shape = SubResource("BoxShape3D_bddh8")
 
 [node name="RayCast3D" type="RayCast3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19568, 0)
-target_position = Vector3(0, 0, -10)
+target_position = Vector3(0, 0, -15)
 collide_with_areas = true
 collide_with_bodies = false

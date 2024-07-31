@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/LevelElements/npc.gd" id="1_bkbr6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wygdf"]
-size = Vector3(2.52408, 1.61926, 0.586304)
+size = Vector3(1.9882, 1.61926, 0.586304)
 
 [node name="NPC" type="Node3D" groups=["cars"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.891, 0)
@@ -15,7 +15,7 @@ transform = Transform3D(-0.265, 0, -2.3167e-08, 0, 0.265, 0, 2.3167e-08, 0, -0.2
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00486758, -1.03548, -0.0352173)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00973979, -1.03548, -0.0352173)
 shape = SubResource("BoxShape3D_wygdf")
 
 [node name="RayCast3D" type="RayCast3D" parent="Area3D"]

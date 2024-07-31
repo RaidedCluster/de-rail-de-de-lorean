@@ -328,6 +328,11 @@ func check_for_triggers(response_text):
 		print("Software update emoji detected. Waiting 5 seconds before changing scene...")
 		var timer = get_tree().create_timer(5.0)
 		timer.connect("timeout", Callable(self, "_on_software_update_timer_timeout"))
+	
+	elif "🏪" in response_text:
+		print("Diner emoji detected. Waiting 5 seconds before changing scene...")
+		var timer = get_tree().create_timer(5.0)
+		timer.connect("timeout", Callable(self, "_on_diner_timer_timeout"))
 
 func adjust_speed(delta):
 	if not delorean.is_obstacle_detected:
@@ -353,3 +358,7 @@ func _on_gas_station_timer_timeout():
 func _on_software_update_timer_timeout():
 	print("Changing to de-ferred scene...")
 	get_tree().change_scene_to_file("res://Scenes/de-ferred.tscn")
+
+func _on_diner_timer_timeout():
+	print("Changing to de_voured scene...")
+	get_tree().change_scene_to_file("res://Scenes/de_voured.tscn")
