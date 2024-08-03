@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpjrmrmr72q4t"]
+[gd_scene load_steps=5 format=3 uid="uid://bpjrmrmr72q4t"]
 
 [ext_resource type="Script" path="res://Scenes/LevelElements/DeLorean.gd" id="1_olohd"]
 [ext_resource type="Texture2D" uid="uid://cfm150xn31afc" path="res://Assets/DeLorean DMC-12/Back.png" id="2_p15yu"]
+[ext_resource type="AudioStream" uid="uid://davh4vokspbe6" path="res://Assets/Audio/TeslaSFXLoopable.mp3" id="3_8pevo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bddh8"]
 size = Vector3(1.77686, 1.13342, 1)
@@ -28,3 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19568, 0)
 target_position = Vector3(0, 0, -15)
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8pevo")
+autoplay = true

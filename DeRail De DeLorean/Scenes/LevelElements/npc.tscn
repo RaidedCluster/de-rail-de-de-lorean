@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dj0l111do5gd"]
+[gd_scene load_steps=5 format=3 uid="uid://dj0l111do5gd"]
 
 [ext_resource type="Script" path="res://Scenes/LevelElements/npc.gd" id="1_bkbr6"]
+[ext_resource type="AudioStream" uid="uid://q66i0ntosvkw" path="res://Assets/Audio/NPCLoopableEngine.mp3" id="2_hn2vv"]
+[ext_resource type="AudioStream" uid="uid://cwny7k5ivhpl1" path="res://Assets/Audio/Honk.mp3" id="3_aa1an"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wygdf"]
 size = Vector3(1.9882, 1.61926, 0.586304)
@@ -24,3 +26,11 @@ target_position = Vector3(0, 0, -4.2)
 collide_with_areas = true
 debug_shape_custom_color = Color(1, 1, 1, 1)
 debug_shape_thickness = 3
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_hn2vv")
+volume_db = 5.0
+autoplay = true
+
+[node name="HONK" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_aa1an")

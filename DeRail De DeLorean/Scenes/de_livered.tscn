@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://htksenq5sx77"]
+[gd_scene load_steps=6 format=3 uid="uid://htksenq5sx77"]
 
 [ext_resource type="Script" path="res://Scenes/de_livered.gd" id="1_c0u77"]
 [ext_resource type="Texture2D" uid="uid://bmer0xbid46wn" path="res://Assets/Splash/Product Liability Claim.png" id="2_o6hvn"]
 [ext_resource type="Texture2D" uid="uid://q6spoqknx447" path="res://Assets/Splash/De Livered.png" id="3_j8w3e"]
 [ext_resource type="FontFile" uid="uid://f14et30hb4ch" path="res://Fonts/Seven Segment.ttf" id="4_trso8"]
+[ext_resource type="AudioStream" uid="uid://b0qiqegl547wr" path="res://Assets/Audio/Children Yay!   Sound Effect.mp3" id="5_l75w3"]
 
 [node name="DeLivered" type="Node2D"]
 script = ExtResource("1_c0u77")
@@ -34,3 +35,7 @@ scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("4_trso8")
 text = "Back to the past?"
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_l75w3")
+autoplay = true

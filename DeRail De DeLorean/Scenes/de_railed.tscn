@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8e45peji7o3t"]
+[gd_scene load_steps=6 format=3 uid="uid://c8e45peji7o3t"]
 
 [ext_resource type="Texture2D" uid="uid://b53dstmw88fk7" path="res://Assets/Splash/DeRailed.png" id="1_feveg"]
 [ext_resource type="Script" path="res://Scenes/de_railed.gd" id="1_qil05"]
 [ext_resource type="FontFile" uid="uid://f14et30hb4ch" path="res://Fonts/Seven Segment.ttf" id="2_shtys"]
 [ext_resource type="Texture2D" uid="uid://by8a2vg52rgmb" path="res://Assets/Chats/Boss Chat Accident Msg.png" id="3_chm6g"]
+[ext_resource type="AudioStream" uid="uid://cub6jioi5s2kg" path="res://Assets/Audio/Crash.wav" id="5_q41en"]
 
 [node name="DeRailed" type="Node2D"]
 script = ExtResource("1_qil05")
@@ -31,3 +32,7 @@ scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("2_shtys")
 text = "Back to the past?"
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_q41en")
+autoplay = true

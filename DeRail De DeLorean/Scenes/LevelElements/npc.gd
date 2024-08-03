@@ -20,6 +20,13 @@ var current_speed: float = 0.0
 var direction: Vector3
 var is_colliding: bool = false
 
+@onready var audio_player = $AudioStreamPlayer3D
+@onready var honk_player = $HONK
+
+var can_honk: bool = true
+var honk_timer: Timer
+
+
 func _ready():
 	area.body_entered.connect(Callable(self, "_on_body_entered"))
 	area.body_exited.connect(Callable(self, "_on_body_exited"))
@@ -35,6 +42,13 @@ func _ready():
 	raycast.enabled = true
 	# Exclude the car's own Area3D from detection
 	raycast.add_exception(area)
+
+	# Initialize the honk timer
+	honk_timer = Timer.new()
+	honk_timer.set_one_shot(true)
+	honk_timer.connect("timeout", Callable(self, "_on_honk_timeout"))
+	add_child(honk_timer)
+
 
 func _process(delta):
 	update_speed(delta)
@@ -62,6 +76,12 @@ func check_collisions():
 			var parent = collider.get_parent()
 			if parent.is_in_group("cars"):
 				is_colliding = true
+				# Play honk sound when the car starts braking if cooldown allows
+				if can_honk:
+					honk_player.play()
+					can_honk = false
+					var cooldown_time = randi() % 4 + 2  # Random time between 2 to 5 seconds
+					honk_timer.start(cooldown_time)
 				return
 	is_colliding = false
 
@@ -88,3 +108,5 @@ func set_direction_and_sprite_based_on_lane():
 		raycast.target_position = Vector3(0, 0, detection_distance)  # Raycast forward
 		sprite.texture = back_sprite
 
+func _on_honk_timeout():
+	can_honk = true

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdcamem7om0ho"]
+[gd_scene load_steps=6 format=3 uid="uid://bdcamem7om0ho"]
 
 [ext_resource type="Script" path="res://Scenes/de_voured.gd" id="1_yk4vm"]
 [ext_resource type="Texture2D" uid="uid://cx6a2d801q4iy" path="res://Assets/Splash/DeVoured.png" id="2_p485b"]
 [ext_resource type="Texture2D" uid="uid://cynjs0dqqv1x" path="res://Assets/Chats/Boss Chat Delay.png" id="3_cgysc"]
 [ext_resource type="FontFile" uid="uid://f14et30hb4ch" path="res://Fonts/Seven Segment.ttf" id="4_lcc7f"]
+[ext_resource type="AudioStream" uid="uid://b7rq7y0rvlvi7" path="res://Assets/Audio/NomNom.mp3" id="5_udxbs"]
 
 [node name="DeVoured" type="Node2D"]
 script = ExtResource("1_yk4vm")
@@ -31,3 +32,7 @@ scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("4_lcc7f")
 text = "Back to the past?"
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_udxbs")
+autoplay = true

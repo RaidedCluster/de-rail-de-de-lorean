@@ -35,6 +35,8 @@ var player_control: bool = false
 var x_position_timer: Timer
 var is_out_of_bounds: bool = false
 
+@onready var audio_player = $AudioStreamPlayer
+
 func _ready():
 	current_sprite = $Sprite3D
 	$Camera3D.current = true
@@ -47,12 +49,15 @@ func _ready():
 	x_position_timer.connect("timeout", Callable(self, "_on_x_position_timeout"))
 	add_child(x_position_timer)
 
+	audio_player.volume_db = -80  # Set initial volume to be inaudible
+
 func _process(delta):
 	if !has_crashed:
 		if player_control:
 			handle_input(delta)
 		move_car(delta)
 	update_sprite()
+	update_audio_volume()
 
 	# Check the x position
 	if global_transform.origin.x > 6 or global_transform.origin.x < -6:
@@ -260,4 +265,12 @@ func trigger_crash(object):
 func _on_x_position_timeout():
 	if is_out_of_bounds:
 		get_tree().change_scene_to_file("res://Scenes/de_flated.tscn")
+
+func update_audio_volume():
+	var speed_factor = abs(current_speed) / max_speed
+	
+	if current_speed == 0:
+		audio_player.volume_db = -80  # Silence the audio when the car is idle
+	else:
+		audio_player.volume_db = lerp(-10, 5, speed_factor)  # Adjust the range as needed
 
