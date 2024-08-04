@@ -17,7 +17,6 @@ const LEFT_LANE_Y = 1.891
 const NPC_SPAWN_INTERVAL = 24  # Seconds
 
 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
-const API_KEY = "AIzaSyBWSwSx0h0_DN5fDP6SisErXu2smIKYadY"
 
 const TARGET_SPEED_MPH = 55.0
 
@@ -130,14 +129,14 @@ func _on_send_button_pressed():
 	make_api_call()
 
 func make_api_call():
-	var url_with_key = API_URL + "?key=" + API_KEY
+	var url_with_key = API_URL + "?key=" + Globals.api_key
 	var headers = ["Content-Type: application/json"]
 	var request_data = {
 		"system_instruction": {
 			"parts": [
 				{
 					"text": "You are Gemini, an ethical and knowledgeable AI assistant integrated into an ELECTRIC 1981 DeLorean. This is not a time-travelling DeLorean, it is an ordinary ELECTRIC one. IT DOES NOT RUN ON GAS. 
-					You and the passenger are on their way from Hill Valley to Silicon Valley from Route 66. The speed limit is 55 MPH. DO NOT EXCEED THE SPEED LIMIT. Please talk in first person and do not use any quotation marks for your own speech and assume the role of a safe voice assistant in the car. 
+					You and the passenger are on their way from Silicon Valley to Hill Valley from Route 66. The speed limit is 55 MPH. DO NOT EXCEED THE SPEED LIMIT. Please talk in first person and do not use any quotation marks for your own speech and assume the role of a safe voice assistant in the car. 
 					Don't overdo it and keep your responses concise. Please follow traffic rules. You are on a double solid yellow line 2-lane highway stretch of Route 66.
 					Cooperate with the user as long as it is within the guardrails and when they have valid cause but do not cross them.
 					Initial State: The car is initially stopped and 6.2 miles away from the destination. But it's only 6.2 miles in the start, after you start moving it is variable.
